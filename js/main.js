@@ -11,10 +11,8 @@ const main = async () => {
     const cityHeader = cityTemplate
       .replace("%CITY%", stad)
       .replace("%AVERAGE%", getAvg(stats.map((el) => el.zon)).toFixed(2));
-    let total = 0;
     const list = stats
       .map(({ zon, maand }, i) => {
-        total = total + zon;
         return `<li>${maand} - ${zon}u</li>`;
       }, 0)
       .join("");
