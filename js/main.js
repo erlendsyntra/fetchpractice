@@ -1,5 +1,5 @@
 import "/css/style.scss";
-import { getSunshine, dummyData } from "./functions.js";
+import { getSunshine, dummyData, getAvg } from "./functions.js";
 const useDummyData = true;
 
 const main = async () => {
@@ -8,20 +8,18 @@ const main = async () => {
   const app = document.querySelector(".app");
   const cityTemplate = document.querySelector("#city").innerHTML;
   const temp = data.map(({ stad, stats }) => {
-    const cityHeader = cityTemplate.replace("%CITY%", stad);
-    let average = 0;
+    const cityHeader = cityTemplate
+      .replace("%CITY%", stad)
+      .replace("%AVERAGE%", getAvg(stats.map((el) => el.zon)).toFixed(2));
     let total = 0;
     const list = stats
       .map(({ zon, maand }, i) => {
         total = total + zon;
-        average = total / (i + 1);
         return `<li>${maand} - ${zon}u</li>`;
       }, 0)
       .join("");
 
-    return cityHeader
-      .replace("%AVERAGE%", average.toFixed(2))
-      .replace("%LIST%", list);
+    return cityHeader.replace("%LIST%", list);
   });
   app.insertAdjacentHTML("beforeend", temp.join(""));
 };

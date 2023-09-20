@@ -1,8 +1,14 @@
-export const getSunshine = async () => {
-  const response = await fetch("https://ap-examen.surge.sh/zon.json");
-  const data = await response.json();
-  return data;
-};
+// export const getSunshine = async () => {
+//   const response = await fetch("https://ap-examen.surge.sh/zon.json");
+//   const data = await response.json();
+//   return data;
+// };
+// shorter code
+export const getSunshine = async () =>
+  await (await fetch("https://ap-examen.surge.sh/zon.json")).json();
+
+export const getAvg = (arr) =>
+  arr.reduce((acc, el) => acc + el, 0) / arr.length;
 
 export const dummyData = [
   {
